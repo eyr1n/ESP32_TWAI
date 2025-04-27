@@ -6,7 +6,7 @@
 #include <driver/gpio.h>
 #include <driver/twai.h>
 
-#include "HardwareCAN.h"
+#include <api/HardwareCAN.h>
 
 using arduino::CanExtendedId;
 using arduino::CanMsg;
