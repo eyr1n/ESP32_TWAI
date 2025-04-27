@@ -66,7 +66,8 @@ int ESP32_TWAI::write(CanMsg const &msg) {
   twai_msg.extd = msg.isStandardId() ? 0 : 1;
   twai_msg.identifier =
       msg.isStandardId() ? msg.getStandardId() : msg.getExtendedId();
-  twai_msg.data_length_code = std::min<uint8_t>(msg.data_length, 8);
+  twai_msg.data_length_code =
+      std::min<uint8_t>(msg.data_length, CanMsg::MAX_DATA_LENGTH);
   std::memcpy(twai_msg.data, msg.data, twai_msg.data_length_code);
   esp_err_t res = twai_transmit_v2(twai_bus_, &twai_msg, 0);
   if (res != ESP_OK) {
