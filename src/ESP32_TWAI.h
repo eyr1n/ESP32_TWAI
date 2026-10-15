@@ -5,6 +5,7 @@
 
 #include <driver/gpio.h>
 #include <driver/twai.h>
+#include <esp_idf_version.h>
 
 #include <api/HardwareCAN.h>
 
@@ -41,10 +42,12 @@ public:
 private:
   twai_general_config_t g_config_;
   twai_filter_config_t f_config_;
+#if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 2, 0)
   twai_handle_t twai_bus_;
+#endif
 };
 
 extern ESP32_TWAI CAN;
-#ifdef CONFIG_IDF_TARGET_ESP32C6
+#if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 2, 0) && defined(CONFIG_IDF_TARGET_ESP32C6)
 extern ESP32_TWAI CAN1;
 #endif
